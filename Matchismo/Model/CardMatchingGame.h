@@ -10,6 +10,7 @@
 #import "Deck.h"
 #import "Card.h"
 
+// Card game with the objective of matching cards by flipping them over.
 @interface CardMatchingGame : NSObject
 
 // Designated initializer.

@@ -20,7 +20,7 @@
 
 @implementation CardMatchingGame
 
-// TODO
+// Getter. Initializes and returns the array of cards currently in the game.
 - (NSMutableArray *)cards {
     if (!_cards) {
         _cards = [[NSMutableArray alloc] init];
@@ -28,7 +28,8 @@
     return _cards;
 }
 
-// TODO
+// Designated initializer.
+// Creates a new matching game with count number of cards in the game.
 - (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck {
     self = [super init];
     
@@ -47,12 +48,18 @@
     return self;
 }
 
+// Returns the Card instance at the given index in cards.
 - (Card *)cardAtIndex:(NSUInteger)index {
     return (index < [self.cards count]) ? self.cards[index] : nil;
 }
 
+// Penalty for flipping over two cards and they don't match.
 static const int MISMATCH_PENALTY = 2;
+
+// Bonus multipled to the score returned by a card match.
 static const int MATCH_BONUS = 4;
+
+// Cost to flip over a card.
 static const int COST_TO_CHOOSE = 1;
 
 // Selects and flips or unflips a card for matching.
@@ -82,6 +89,5 @@ static const int COST_TO_CHOOSE = 1;
         }
     }
 }
-
 
 @end

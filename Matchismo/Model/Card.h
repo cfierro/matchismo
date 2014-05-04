@@ -11,16 +11,17 @@
 // Class that models a basic card with an unrestricted content string.
 @interface Card : NSObject
 
-// Gets the string to be displayed on a Card instance.
+// The string to be displayed on a Card instance.
 @property (strong, nonatomic) NSString *contents;
 
-// TODO
+// Card is faceup if true and facedown if false.
 @property (nonatomic, getter=isChosen) BOOL chosen;
 
-// TODO
+// Card has been matched if true and.
 @property (nonatomic, getter=isMatched) BOOL matched;
 
-// TODO
+// Returns a non-zero value if the Card instance's contents exactly matches a
+// card's contents in otherCards.
 - (int)match:(NSArray *)otherCards;
 
 @end

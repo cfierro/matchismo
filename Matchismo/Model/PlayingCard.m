@@ -10,7 +10,8 @@
 
 @implementation PlayingCard
 
-// TODO
+// Returns a non-zero value if the PlayingCard instance's suit or rank matches
+// another card's suit or rank.
 - (int)match:(NSArray *)otherCards {
     int score = 0;
     

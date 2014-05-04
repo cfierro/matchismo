@@ -12,26 +12,20 @@
 
 @interface CardGameViewController ()
 
-// Displays the number of times the card has been flipped.
-@property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
-
-// Counts the number of times the card has been flipped.
-@property (nonatomic) int flipCount;
-
-// A Deck object containing PlayingCard objects.
-@property (strong, nonatomic) Deck *deck;
-
-// TODO
+// The card matching game containing the logic for the Matchismo game.
 @property (strong, nonatomic) CardMatchingGame *game;
 
-// TODO
+// UIButtons representing and displaying the cards in the game.
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+
+// Label representing and displaying the score in the game.
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
 @end
 
 @implementation CardGameViewController
 
-// TODO
+// Getter. Initializes and returns the current Matchismo game.
 - (CardMatchingGame *)game {
     if (!_game) _game = [[CardMatchingGame alloc]
                          initWithCardCount:[self.cardButtons count]
@@ -39,40 +33,42 @@
     return _game;
 }
 
-// Getter. Initializes and returns the deck containing PlayingCard objects.
-- (Deck *)deck {
-    if (!_deck) {
-        _deck = [self createDeck];
-    }
-    return _deck;
-}
-
+// Creates and returns a deck to play a game with.
 - (Deck *)createDeck {
     return [[PlayingCardDeck alloc] init];
 }
 
-// Setter. Sets the new flipCount and updates the flipsLabel.
-- (void)setFlipCount:(int)flipCount {
-    _flipCount = flipCount;
-    self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d",
-                            self.flipCount];
-    NSLog(@"flipCount changed to %d", self.flipCount);
+// Updates the cardButtons and scoreLabel using and depending on the game logic.
+- (void)updateUI {
+    for (UIButton *cardButton in self.cardButtons) {
+        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+        Card *card = [self.game cardAtIndex:cardButtonIndex];
+        [cardButton setTitle:[self titleForCard:card]
+                    forState:UIControlStateNormal];
+        [cardButton setBackgroundImage:[self backgroundImageForCard:card]
+                              forState:UIControlStateNormal];
+        cardButton.enabled = !card.isMatched;
+        cardButton.alpha = card.isMatched ? 0.7 : 1.0;
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d",
+                                self.game.score];
+    }
+}
+
+// Returns a string to display on the cardButton for the respective card.
+- (NSString *)titleForCard:(Card *)card {
+    return card.isChosen ? card.contents : @"";
+}
+
+// Returns an image to display on the cardButton for the respecitive card.
+- (UIImage *)backgroundImageForCard:(Card *)card {
+    return [UIImage imageNamed:card.isChosen ? nil : @"cardback"];
 }
 
 // Action that makes the card (button) flip back and forth.
 - (IBAction)touchCardButton:(UIButton *)sender {
-    if ([sender.currentTitle length]) {
-        [sender setBackgroundImage:[UIImage imageNamed:@"cardback"]
-                          forState:UIControlStateNormal];
-        [sender setTitle:@"" forState:UIControlStateNormal];
-    } else {
-        Card *card = [self.deck drawRandomCard];
-        NSString *contents = card.contents ? card.contents : @"Done!";
-        [sender setBackgroundImage:nil
-                          forState:UIControlStateNormal];
-        [sender setTitle:contents forState:UIControlStateNormal];
-    }
-    self.flipCount++;
+    int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
+    [self.game chooseCardAtIndex:chosenButtonIndex];
+    [self updateUI];
 }
 
 @end

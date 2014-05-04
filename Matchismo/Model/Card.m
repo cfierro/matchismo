@@ -10,7 +10,8 @@
 
 @implementation Card
 
-// TODO
+// Returns a non-zero value if the Card instance's contents exactly matches a
+// card's contents in otherCards.
 - (int)match:(NSArray *)otherCards {
     int score = 0;
     
