@@ -59,9 +59,9 @@
     return card.isChosen ? card.contents : @"";
 }
 
-// Returns an image to display on the cardButton for the respecitive card.
+// Returns an image to display on the cardButton for the respective card.
 - (UIImage *)backgroundImageForCard:(Card *)card {
-    return [UIImage imageNamed:card.isChosen ? nil : @"cardback"];
+    return card.isChosen ? nil : [UIImage imageNamed:@"cardback"];
 }
 
 // Action that makes the card (button) flip back and forth.
