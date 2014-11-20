@@ -71,4 +71,10 @@
     [self updateUI];
 }
 
+// Resets the game by dropping the reference to the CardMatchingGame instance.
+- (IBAction)touchDealButton {
+    self.game = nil;
+    [self updateUI];
+}
+
 @end
