@@ -21,6 +21,9 @@
 // Label representing and displaying the score in the game.
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
+// Deal button that can reset the game.
+@property (weak, nonatomic) IBOutlet UIButton *dealButton;
+
 @end
 
 @implementation CardGameViewController
@@ -45,10 +48,8 @@
         Card *card = [self.game cardAtIndex:cardButtonIndex];
         [cardButton setTitle:[self titleForCard:card]
                     forState:UIControlStateNormal];
-        [cardButton setBackgroundImage:[self backgroundImageForCard:card]
-                              forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
-        cardButton.alpha = card.isMatched ? 0.7 : 1.0;
+        cardButton.alpha = card.isMatched ? 0.6 : 1.0;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d",
                                 self.game.score];
     }
@@ -56,12 +57,7 @@
 
 // Returns a string to display on the cardButton for the respective card.
 - (NSString *)titleForCard:(Card *)card {
-    return card.isChosen ? card.contents : @"";
-}
-
-// Returns an image to display on the cardButton for the respective card.
-- (UIImage *)backgroundImageForCard:(Card *)card {
-    return card.isChosen ? nil : [UIImage imageNamed:@"cardback"];
+    return card.isChosen ? card.contents : @"";
 }
 
 // Action that makes the card (button) flip back and forth.
@@ -77,6 +73,22 @@
                  initWithCardCount:[self.cardButtons count]
                          usingDeck:[self createDeck]];
     [self updateUI];
+}
+
+// Customize button look.
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.dealButton.layer.masksToBounds = YES;
+    self.dealButton.layer.cornerRadius = 4.0f;
+    self.dealButton.layer.borderWidth = 1.0f;
+    self.dealButton.layer.borderColor = [[UIColor blackColor] CGColor];
+
+    for (UIButton *cardButton in self.cardButtons) {
+        cardButton.layer.masksToBounds = YES;
+        cardButton.layer.cornerRadius = 4.0f;
+        cardButton.layer.borderColor = [[UIColor blackColor] CGColor];
+    }
 }
 
 @end
