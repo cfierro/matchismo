@@ -17,7 +17,7 @@
 // Card is faceup if true and facedown if false.
 @property (nonatomic, getter=isChosen) BOOL chosen;
 
-// Card has been matched if true and.
+// Card has been matched if true and unmatched if false.
 @property (nonatomic, getter=isMatched) BOOL matched;
 
 // Returns a non-zero value if the Card instance's contents exactly matches a
