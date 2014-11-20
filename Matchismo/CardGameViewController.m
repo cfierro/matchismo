@@ -71,9 +71,11 @@
     [self updateUI];
 }
 
-// Resets the game by dropping the reference to the CardMatchingGame instance.
+// Resets the game by creating a new CardMatchingGame.
 - (IBAction)touchDealButton {
-    self.game = nil;
+    self.game = [[CardMatchingGame alloc]
+                 initWithCardCount:[self.cardButtons count]
+                         usingDeck:[self createDeck]];
     [self updateUI];
 }
 
