@@ -14,17 +14,19 @@
 // another card's suit or rank.
 - (int)match:(NSArray *)otherCards {
     int score = 0;
+    int numMatched = 0;
     
-    if ([otherCards count] == 1) {
-        PlayingCard *otherCard = [otherCards firstObject];
-        if (otherCard.rank == self.rank) {
-            score = 4;
-        } else if ([otherCard.suit isEqualToString:self.suit]) {
-            score = 1;
+    for (PlayingCard *playingCard in otherCards) {
+        if (playingCard.rank == self.rank) {
+            score += 4;
+            numMatched++;
+        } else if ([playingCard.suit isEqualToString:self.suit]) {
+            score += 1;
+            numMatched++;
         }
     }
     
-    return score;
+    return score * numMatched;
 }
 
 // Getter. Gets the string to be displayed on a PlayingCard instance.
