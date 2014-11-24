@@ -76,7 +76,7 @@ static const int COST_TO_CHOOSE = 1;
                     [otherChosenCards addObject:otherCard];
                 }
             }
-            if ([otherChosenCards count] == 2) {
+            if ([otherChosenCards count] == self.matchMode - 1) {
                 int matchScore = [card match:otherChosenCards];
                 if (matchScore) {
                     for (Card *otherCard in otherChosenCards) {

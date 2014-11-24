@@ -24,6 +24,10 @@
 // Deal button that can reset the game.
 @property (weak, nonatomic) IBOutlet UIButton *dealButton;
 
+// Controls whether the game matches two or three cards at a time.
+// Disabled after the first card is flipped.
+@property (weak, nonatomic) IBOutlet UISegmentedControl *matchModeControl;
+
 @end
 
 @implementation CardGameViewController
@@ -62,6 +66,10 @@
 
 // Action that makes the card (button) flip back and forth.
 - (IBAction)touchCardButton:(UIButton *)sender {
+    NSString *title = [self.matchModeControl
+        titleForSegmentAtIndex:self.matchModeControl.selectedSegmentIndex];
+    self.game.matchMode = title.integerValue;
+
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
     [self updateUI];

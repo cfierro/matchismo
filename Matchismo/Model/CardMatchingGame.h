@@ -26,4 +26,7 @@
 // Public read only score for the game.
 @property (nonatomic, readonly) NSInteger score;
 
+// How many cards to match at a time.
+@property (nonatomic) NSUInteger matchMode;
+
 @end

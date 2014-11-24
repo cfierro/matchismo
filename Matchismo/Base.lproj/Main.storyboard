@@ -252,6 +252,7 @@
                     </view>
                     <connections>
                         <outlet property="dealButton" destination="Fpy-ii-hYA" id="d0G-D3-P8f"/>
+                        <outlet property="matchModeControl" destination="eWX-xV-ZxB" id="0Dx-Ab-MXC"/>
                         <outlet property="scoreLabel" destination="aDe-cJ-Shp" id="Tyb-8H-3Cy"/>
                         <outletCollection property="cardButtons" destination="7Sx-aO-TEv" id="MAL-cf-Hlt"/>
                         <outletCollection property="cardButtons" destination="op7-jb-fGE" id="CYm-Rr-H1s"/>
