@@ -57,6 +57,7 @@
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d",
                                 self.game.score];
     }
+    self.matchModeControl.enabled = !self.game.hasStarted;
 }
 
 // Returns a string to display on the cardButton for the respective card.
@@ -66,9 +67,11 @@
 
 // Action that makes the card (button) flip back and forth.
 - (IBAction)touchCardButton:(UIButton *)sender {
-    NSString *title = [self.matchModeControl
-        titleForSegmentAtIndex:self.matchModeControl.selectedSegmentIndex];
-    self.game.matchMode = title.integerValue;
+    if (!self.game.hasStarted) {
+        NSString *title = [self.matchModeControl
+            titleForSegmentAtIndex:self.matchModeControl.selectedSegmentIndex];
+        self.game.matchMode = title.integerValue;
+    }
 
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];

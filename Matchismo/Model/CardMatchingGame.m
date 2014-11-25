@@ -14,7 +14,9 @@
 @property (nonatomic, readwrite) NSInteger score;
 
 // Card instances in the current game.
-@property (nonatomic, strong) NSMutableArray *cards;
+@property (strong, nonatomic) NSMutableArray *cards;
+
+@property (nonatomic, readwrite) BOOL started;
 
 @end
 
@@ -45,6 +47,8 @@
         }
     }
     
+    self.started = NO;
+
     return self;
 }
 
@@ -64,6 +68,8 @@ static const int COST_TO_CHOOSE = 1;
 
 // Selects and flips or unflips a card for matching.
 - (void)chooseCardAtIndex:(NSUInteger)index {
+    self.started = YES;
+
     Card *card = [self cardAtIndex:index];
     
     if (!card.isMatched) {
