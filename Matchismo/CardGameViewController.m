@@ -54,9 +54,9 @@
                     forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
         cardButton.alpha = card.isMatched ? 0.6 : 1.0;
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d",
-                                self.game.score];
     }
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d",
+                            self.game.score];
     self.matchModeControl.enabled = !self.game.hasStarted;
 }
 
